@@ -4,6 +4,7 @@ namespace app\controller\Api;
 
 use support\Request;
 use app\service\JumpLinkService;
+use support\bootstrap\Redis;
 
 //url跳转功能
 class JumpController
@@ -17,6 +18,13 @@ class JumpController
     {
         $data = JumpLinkService::getData();
         return json(['code' => 0, 'data' => $data]);
+    }
+
+    public function test(Request $request)
+    {
+        $key = 'test_key';
+        Redis::set($key, rand());
+        return response(Redis::get($key));
     }
 
 }

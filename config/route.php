@@ -27,6 +27,7 @@ Route::group('/api', function () {
 //        Route::any('/getData', [app\controller\Api\LinkController::class, 'index']);
 //    });
     Route::any('/getData', [app\controller\Api\JumpController::class, 'getData']);
+    Route::any('/test', [app\controller\Api\JumpController::class, 'test']);
 })->middleware([
     app\middleware\ApiCounter::class,
     app\middleware\CrossDomain::class
