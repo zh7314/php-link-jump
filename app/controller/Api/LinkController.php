@@ -4,7 +4,7 @@ namespace app\controller\Api;
 
 use support\Request;
 
-class Link
+class LinkController
 {
     public function index(Request $request)
     {

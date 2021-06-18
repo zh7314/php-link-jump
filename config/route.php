@@ -19,15 +19,14 @@ use Webman\Route;
 //    return view('index/view', ['name' => 'webman11111']);
 //});
 
-//Route::any('/{code}', [app\controller\Api\Jump::class, 'doJump']);
-//
-//Route::any('/view/{id}', [app\controller\Api\Jump::class, 'view']);
+//跳转主业务数据
+Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump']);
 
 Route::group('/api', function () {
 //    Route::group('/api1', function () {
-//        Route::any('/getData', [app\controller\Api\Link::class, 'index']);
+//        Route::any('/getData', [app\controller\Api\LinkController::class, 'index']);
 //    });
-    Route::any('/getData', [app\controller\Api\Link::class, 'index']);
+    Route::any('/getData', [app\controller\Api\LinkController::class, 'getData']);
 })->middleware([
     app\middleware\ApiCounter::class,
     app\middleware\CrossDomain::class

@@ -4,7 +4,7 @@ namespace app\controller\Admin;
 
 use support\Request;
 
-class JumpLinkManage
+class JumpLinkManageController
 {
     public function index(Request $request)
     {
