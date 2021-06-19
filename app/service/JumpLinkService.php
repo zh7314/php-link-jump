@@ -30,16 +30,17 @@ class JumpLinkService
             $jumpLink->jump_url = urlencode($url);
             $jumpLink->md5_data = md5($url);
 
-            $jumpLink->duration_count = 100;
+            $jumpLink->duration_count = 1000;
             $jumpLink->save();
 
-            $jumpLink->short_id = LargeDigitalConversion62::from10To62($jumpLink->id);
-            $jumpLink->save();
+            $short_id = LargeDigitalConversion62::from10To62($jumpLink->id);
+            JumpLink::where('id',$jumpLink->id)->update(['short_id'=>$short_id]);
+
             DB::commit();
             //写入缓存
 
-            Redis::setEx($jumpLink->short_id, $jumpLink->duration_count, $jumpLink->jump_url);
-            return $jumpLink->jump_url;
+            Redis::setEx($short_id, $jumpLink->duration_count, $jumpLink->jump_url);
+            return $short_id;
         } catch (Exception $e) {
             DB::rollBack();
             throw new Exception($e->getMessage());

@@ -19,12 +19,12 @@ class JumpController
             }
 
             $data = Redis::get($id);
+//            print_r(urldecode($data));
             if(empty($data)){
                 throw new Exception("url已不存在");
             }
 
-//            $url = JumpService::getLinkData($id);
-            redirect($data);
+          return  redirect(urldecode($data));
 
         } catch (Exception $e) {
             return json(['code' => 400, 'msg' => $e->getMessage()]);

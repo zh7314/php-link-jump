@@ -10,12 +10,12 @@ use Exception;
 class JumpLinkManageController
 {
 
-    public function test(Request $request)
-    {
-        $key = 'test_key';
-        Redis::set($key, rand());
-        return response(Redis::get($key));
-    }
+//    public function test(Request $request)
+//    {
+//        $key = 'test_key';
+//        Redis::set($key, rand());
+//        return response(Redis::get($key));
+//    }
 
     public function getData(Request $request)
     {
