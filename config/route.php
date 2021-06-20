@@ -23,13 +23,8 @@ use Webman\Route;
 Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump']);
 
 Route::group('/api', function () {
-//    Route::group('/api1', function () {
-//        Route::any('/getData', [app\controller\Api\LinkController::class, 'index']);
-//    });
-//    Route::any('/getData', [app\controller\Admin\JumpLinkManageController::class, 'getData']);
-//    Route::any('/test', [app\controller\Admin\JumpLinkManageController::class, 'test']);
 
-    Route::any('/addLink', [app\controller\Admin\JumpLinkManageController::class, 'addLink']);
+    Route::post('/addLink', [app\controller\Admin\JumpLinkManageController::class, 'addLink']);
 })->middleware([
     app\middleware\ApiCounter::class,
     app\middleware\CrossDomain::class,

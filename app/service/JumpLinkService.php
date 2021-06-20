@@ -34,8 +34,10 @@ class JumpLinkService
             $jumpLink->save();
 
             $short_id = LargeDigitalConversion62::from10To62($jumpLink->id);
-            JumpLink::where('id',$jumpLink->id)->update(['short_id'=>$short_id]);
 
+//            JumpLink::where('id',$jumpLink->id)->update(['short_id'=>$short_id]);
+            $jumpLink->short_id = $short_id;
+            $jumpLink->save();
             DB::commit();
             //写入缓存
 

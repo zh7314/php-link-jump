@@ -25,6 +25,7 @@ class JumpController
             }
 
           return  redirect(urldecode($data));
+//            return  redirect($data);
 
         } catch (Exception $e) {
             return json(['code' => 400, 'msg' => $e->getMessage()]);

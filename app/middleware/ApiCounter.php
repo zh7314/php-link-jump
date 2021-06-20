@@ -11,7 +11,7 @@ class ApiCounter implements MiddlewareInterface
 {
     public function process(Request $request, callable $next): Response
     {
-        $request->data = 'some value';
+//        $request->data = 'some value';
 
         return $next($request);
     }
