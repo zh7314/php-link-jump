@@ -3,31 +3,21 @@
 namespace app\controller\Admin;
 
 use app\service\JumpLinkService;
-use support\bootstrap\Redis;
 use support\Request;
 use Exception;
+use \app\controller\Admin\BaseController;
 
-class JumpLinkManageController
+class JumpLinkManageController extends BaseController
 {
-
-//    public function test(Request $request)
-//    {
-//        $key = 'test_key';
-//        Redis::set($key, rand());
-//        return response(Redis::get($key));
-//    }
-
     public function getData(Request $request)
     {
         $data = JumpLinkService::getData();
-        return json(['code' => 0, 'data' => $data]);
+        return json(['code' => self::SUCCESS, 'data' => $data]);
     }
 
     public function addLink(Request $request)
     {
         try {
-
-//            print_r($request->all());
             if (empty($request->input('jump_url'))) {
                 throw new Exception("待跳转URL不能为空");
             }
@@ -42,13 +32,11 @@ class JumpLinkManageController
             }
             $url = JumpLinkService::addLink($request->input('jump_url'), $request->input('end_time'));
 
-            return json(['code' => 200, 'msg' => '转换成功', 'data' => urldecode($url)]);
+            return json(['code' => self::SUCCESS, 'msg' => '转换成功', 'data' => urldecode($url)]);
         } catch (Exception $e) {
-            return json(['code' => 400, 'msg' => $e->getMessage()]);
+            return json(['code' => self::FAIL, 'msg' => $e->getMessage()]);
         }
 
-        $data = JumpLinkService::getData();
-        return json(['code' => 0, 'data' => $data]);
     }
 
 }

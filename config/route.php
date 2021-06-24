@@ -16,14 +16,13 @@ use Webman\Route;
 
 //默认首页
 //Route::any('/', function ($request) {
-//    return view('index/view', ['name' => 'webman11111']);
+//    return view('index/view', ['name' => 'URL跳转']);
 //});
 
 //跳转主业务数据
 Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump']);
 
 Route::group('/api', function () {
-
     Route::post('/addLink', [app\controller\Admin\JumpLinkManageController::class, 'addLink']);
 })->middleware([
     app\middleware\ApiCounter::class,

@@ -30,22 +30,28 @@ class JumpLinkService
             $jumpLink->jump_url = urlencode($url);
             $jumpLink->md5_data = md5($url);
 
-            $jumpLink->duration_count = 1000;
+            $start = time();
+            $end = strtotime($end_time);
+
+            if ($end <= $start) {
+                throw new Exception("结束时间不能小于等于当前时间");
+            }
+            $count = $end - $start;
+
+            $jumpLink->end_time = $end_time;
             $jumpLink->save();
 
             $short_id = LargeDigitalConversion62::from10To62($jumpLink->id);
 
-//            JumpLink::where('id',$jumpLink->id)->update(['short_id'=>$short_id]);
             $jumpLink->short_id = $short_id;
             $jumpLink->save();
             DB::commit();
             //写入缓存
-
-            Redis::setEx($short_id, $jumpLink->duration_count, $jumpLink->jump_url);
+            Redis::setEx($short_id, $count, $jumpLink->jump_url);
             return $short_id;
         } catch (Exception $e) {
             DB::rollBack();
-            throw new Exception($e->getMessage());
+            throw $e;
         }
     }
 }
