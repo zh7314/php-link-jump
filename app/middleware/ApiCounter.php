@@ -21,7 +21,8 @@ class ApiCounter implements MiddlewareInterface
         $apiLog->exec_time = date('Y-m-d H:i:s');
 
         $response = $next($request);
-        $apiLog->response_data = $response->rawBody();
+        $apiLog->response_data = empty($response->rawBody()) ? json_encode([$response->getStatusCode(), $response->getHeaders()]) : $response->rawBody();
+
         $apiLog->response_time = date('Y-m-d H:i:s');
         $apiLog->save();
 

@@ -22,6 +22,7 @@ use Webman\Route;
 //跳转主业务数据
 Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump'])->middleware([
     app\middleware\CrossDomain::class,
+    app\middleware\ApiCounter::class,
 ]);
 
 Route::group('/api', function () {
