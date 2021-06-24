@@ -20,10 +20,13 @@ use Webman\Route;
 //});
 
 //跳转主业务数据
-Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump']);
+Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump'])->middleware([
+    app\middleware\CrossDomain::class,
+]);
 
 Route::group('/api', function () {
     Route::post('/addLink', [app\controller\Admin\JumpLinkManageController::class, 'addLink']);
+    Route::post('/getData', [app\controller\Admin\JumpLinkManageController::class, 'getData']);
 })->middleware([
     app\middleware\ApiCounter::class,
     app\middleware\CrossDomain::class,

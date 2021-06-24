@@ -13,7 +13,7 @@ class JumpLinkService
 
     public static function getData()
     {
-        return JumpLink::whereNotNull('deleted_at')->get();
+        return JumpLink::whereNull('deleted_at')->get();
     }
 
     public static function addLink(string $url, string $end_time)
