@@ -9,6 +9,8 @@ use support\bootstrap\Redis;
 
 class JumpLinkService
 {
+    public static $jumpKey = 'JumpLink_';
+
     public static function getData()
     {
         return JumpLink::whereNotNull('deleted_at')->get();
@@ -47,7 +49,7 @@ class JumpLinkService
             $jumpLink->save();
             DB::commit();
             //写入缓存
-            Redis::setEx($short_id, $count, $jumpLink->jump_url);
+            Redis::setEx(self::$jumpKey . $short_id, $count, $jumpLink->jump_url);
             return $short_id;
         } catch (Exception $e) {
             DB::rollBack();

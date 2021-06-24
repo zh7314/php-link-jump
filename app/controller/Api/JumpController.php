@@ -6,6 +6,7 @@ use support\Request;
 use support\bootstrap\Redis;
 use Exception;
 use \app\controller\Api\BaseController;
+use app\service\JumpLinkService;
 
 //url跳转功能
 class JumpController extends BaseController
@@ -16,7 +17,7 @@ class JumpController extends BaseController
             if (empty($id)) {
                 throw new Exception("url已不存在");
             }
-            $data = Redis::get($id);
+            $data = Redis::get(JumpLinkService::$jumpKey . $id);
             if (empty($data)) {
                 throw new Exception("url已不存在");
             }
