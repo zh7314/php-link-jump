@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jumplink测试</title>
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/style.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://img.cdn.apipost.cn/docs/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/content.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/github.css">
+    <script src="https://img.cdn.apipost.cn/docs/js/jquery-3.4.1.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/marked.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/template-web.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/highlight.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/clipboard.min.js"></script>
+</head>
+
+<body>
+<!-- <body> -->
+<div class="body">
+    <div class="doc-head">
+        <div class="left">
+            <img src="https://img.cdn.apipost.cn/docs/images/logo.svg">
+        </div>
+        <div class="container">
+            <div class="container-left">
+                <input type="text" class="search" placeholder="搜索目录接口">
+                <button><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+            <!--            <div class="export" style="position: relative;-->
+            <!--                float: right;-->
+            <!--                margin: -16px 50px;">-->
+            <!--                <div class="container-right">-->
+            <!--                    <a href="javascript:;">导出文档</a>-->
+            <!--                </div>-->
+            <!--                <div class="export_panel">-->
+            <!--                    <ul>-->
+            <!--                        <li><a href="javascript:;">导出HTML</a></li>-->
+            <!--                        <li><a href="javascript:;">导出MarkDown</a></li>-->
+            <!--                        <li><a href="javascript:;">导出Word</a></li>-->
+            <!--                    </ul>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-first">
+            <div class="title">
+                zx的私有项目            </div>
+            <div class="top target" data-target_id="001">全局参数</div>
+            <div class="new" style="height:calc(100% - 60px) !important;">
+
+            </div>
+            <div class="bar"></div>
+            <script type="text/html" id="template-target-sidebar-list-tpl">
+                {{each list value}}
+                <div>
+                    <div class="target {{value.target_type == 'folder' ? 'folder':'api'}}"
+                         data-type="{{value.target_type}}" data-id="{{value.target_id}}"
+                         data-target_id="{{value.local_target_id}}">
+                        {{if value.target_type == 'folder'}}
+                        <span>
+                       <span class="control">
+                           {{if value.children}}
+                           <i class="fa fa-angle-down"></i>
+                           {{/if}}
+                        </span>
+                       <span>{{value.name}}</span> 
+                       </span>
+                        {{else}}
+                        <span>
+                            <em class="{{((target_type == 'doc') || (target_type == 'example' && is_doc == 1)) ? 'DOC' : target_type == 'example' ? method : ''}}">{{(target_type == 'doc' || (target_type == 'example' && is_doc == '1')) ? '文本' :  method == 'OPTIONS' ? 'OPT' : method == 'DELETE' ? 'DEL' : method == 'UNLINK' ? 'UNLNK' : method == 'UNLOCK' ? 'UNLCK' : method == 'PROPFIND' ? 'PROP' : method}}</em>
+                       <span>{{value.name}}</span>  
+                       </span>
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if value.children!=null}}
+                    {{each value.children data}}
+                    {{set a=data["index"]=3}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+                {{/each}}
+            </script>
+            <script type="text/html" id="list1">
+                <div>
+                    <div class="target {{target_type == 'folder' ? 'folder':'api'}}" data-type="{{target_type}}"
+                         data-id="{{target_id}}" data-target_id="{{local_target_id}}"
+                         style="padding-left:{{index * 15}}px">
+                        {{if target_type == 'folder'}}
+                        <span>
+                                    <span class="control">
+                                        {{if children}}
+                                        <i class="fa fa-angle-down"></i>
+                                        {{/if}}
+                                    </span>
+                                    <span>{{name}}</span> 
+                                </span>
+
+                        {{else}}
+                        <span>
+                            <em class="{{((target_type == 'doc') || (target_type == 'example' && is_doc == 1)) ? 'DOC' : target_type == 'example' ? method : ''}}">{{(target_type == 'doc' || (target_type == 'example' && is_doc == '1')) ? '文本' :  method == 'OPTIONS' ? 'OPT' : method == 'DELETE' ? 'DEL' : method == 'UNLINK' ? 'UNLNK' : method == 'UNLOCK' ? 'UNLCK' : method == 'PROPFIND' ? 'PROP' : method}}</em>
+                           <span>{{name}}</span> 
+                           </span>
+
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if children!=null}}
+                    {{each children data}}
+                    {{if index}}
+                    {{set b=data.index=index+1}}
+                    {{else}}
+                    {{set c=data["index"] = 3}}
+                    {{/if}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </script>
+
+        </div>
+        <div class="box-third">
+            <div class="preview-markdown">
+
+            </div>
+            <div class="box-nav" style="background: #fff">
+                <ul class="api template-nav-menu">
+                    <script type="text/html" id="template-nav-menu-tpl">
+                        {{if target_type == "api" || target_type == "folder" || (target_type == "example" && is_doc == 0) }}
+                        <li class="cur nav-btn" data-id="0"><a href="javascript:;">基本信息</a></li>
+                        {{/if}}
+                        {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !=''}}
+                        <li class="nav-btn" data-id="1" style="display: block"><a href="javascript:;">请求参数</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="1" style="display: none"><a href="javascript:;">请求参数</a></li>
+                        {{/if}}
+                        <ul>
+                            {{if request.header.parameter.length > 0}}
+                            <li class="nav-btn" data-id="2" style="display: block"><a
+                                        href="javascript:;">header参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="2" style="display: none"><a href="javascript:;">header参数及说明</a>
+                            </li>
+                            {{/if}}
+                            {{if request.query.parameter.length > 0}}
+                            <li class="nav-btn" data-id="3" style="display: block"><a href="javascript:;">query参数及说明</a>
+                            </li>
+                            {{else}}
+                            <li class="nav-btn" data-id="3" style="display: none"><a href="javascript:;">query参数及说明</a>
+                            </li>
+                            {{/if}}
+                            {{if request.resful.parameter.length > 0}}
+                            <li class="nav-btn" data-id="4" style="display: block"><a href="javascript:;">路径参数及说明</a>
+                            </li>
+                            {{else}}
+                            <li class="nav-btn" data-id="4" style="display: none"><a href="javascript:;">路径参数及说明</a>
+                            </li>
+                            {{/if}}
+                            {{if request.body.parameter.length>0 ||request.body.raw !='' }}
+                            <li class="nav-btn" data-id="5" style="display: block"><a href="javascript:;">body参数及说明</a>
+                            </li>
+                            {{else}}
+                            <li class="nav-btn" data-id="5" style="display: none"><a href="javascript:;">body参数及说明</a>
+                            </li>
+                            {{/if}}
+                            <!--                        <li class="nav-btn" data-id="6"><a href="javascript:;">预执行脚本</a></li>-->
+                            <!--                        <li class="nav-btn" data-id="7"><a href="javascript:;">后执行脚本</a></li>-->
+
+                        </ul>
+                        {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0}}
+                        <li class="nav-btn" data-id="6" style="display: block"><a href="javascript:;">响应示例</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="6" style="display: none"><a href="javascript:;">响应示例</a></li>
+                        <!--                        <ul>-->
+                        <!--                            {{if response.success.raw || response.success.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="9"><a href="javascript:;">成功响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!---->
+                        <!--                            {{if response.error.raw || response.error.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="10"><a href="javascript:;">失败响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!--                        </ul>-->
+                        {{/if}}
+                    </script>
+                </ul>
+                </ul>
+                <ul class="folder">
+                    <li class="cur nav-folder-btn" data-id="0"><a href="javascript:;">公共参数</a></li>
+                    <ul>
+                        <li class="nav-folder-btn" data-id="1"><a href="javascript:;">header参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="2"><a href="javascript:;">query参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="3"><a href="javascript:;">body参数及说明</a></li>
+                        <!--                        <li class="nav-folder-btn" data-id="4"><a href="javascript:;">预执行脚本</a></li>-->
+                        <!--                        <li class="nav-folder-btn" data-id="5"><a href="javascript:;">后执行脚本</a></li>-->
+                    </ul>
+                </ul>
+            </div>
+            <script type="text/html" id="template-example-doc-tpl">
+                <h2>
+                    <span>{{name}}</span>
+                    {{if target_type != 'folder'}}
+                    <button title="复制当前文档/接口数据到剪贴板" class="CopyCurrentData" data-clipboard-action="copy" data-clipboard-text="" data-target_id="{{target_id}}">复制接口</button>
+                    <a href="https://mp.apipost.cn/a/8c7b0ac975443421" title="什么是复制接口？" target="_blank"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+                    {{/if}}
+                    <span class="metadata">更新时间：{{update_dtime}}</span>
+                </h2>
+                {{if request.description}}
+                <div class="editor-preview desc markdown-section">
+                    {{@marked(request.description)}}
+                </div>
+                {{/if}}
+                {{if (target_type == 'example' && is_doc == '0') || target_type == 'api'}}
+                <h3 class="title"><a href="javascript:;" class="maodian"></a> 基本信息 <i class="fa fa-angle-down"></i></h3>
+                <ul class="editor-preview-info">
+                    <li><strong>接口状态:</strong> <code class="span {{mark}}">{{mark == 'developing' ? '开发中' : mark ==
+                            'complated' ?
+                            '已完成' : mark == 'modifying' ? '修改中' : '开发中'}}</code></li>
+                    {{if request.url}}
+                    <li><strong>接口URL：</strong> <code class="span">{{request.url}}</code></li>
+                    {{/if}}
+                    <li><strong>请求方式：</strong> <code class="span">{{method}}</code></li>
+                    <li><strong>Content-Type：</strong><code class="span">{{request.body.mode}}</code></li>
+                </ul>
+
+                <h3 class="title"
+                    style="{{request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !='' ? 'display:block':'display:none'}}">
+                    <a href="javascript:;" class="maodian"></a> 请求参数 <i class="fa fa-angle-down"></i></h3>
+                {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !=''}}
+                <div class="markdown-request">
+                    <h4 class="title" style="{{request.header.parameter.length ? 'display:block':'display:none'}}"><a
+                                href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    {{if request.header.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.header.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.query.parameter.length > 0 ? 'display:block':'display:none'}}"><a
+                                href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    {{if request.query.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.query.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.resful.parameter.length ? 'display:block':'display:none'}}"><a
+                                href="javascript:;" class="maodian"></a> 路径参数及说明</h4>
+                    {{if request.resful.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.resful.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title"
+                        style="{{request.body.parameter.length > 0 || request.body.raw !='' ? 'display:block' : 'display:none'}}">
+                        <a href="javascript:;" class="maodian"></a> body参数及说明</h4>
+                    {{if request.body.parameter.length>0 ||request.body.raw !='' }}
+                    {{if request.body.mode == 'form-data' || request.body.mode == 'multipart/form-data' ||
+                    request.body.mode =='application/x-www-form-urlencoded' || request.body.mode=="urlencoded"}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{if request.body.parameter.length > 0}}
+                            {{each request.body.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                            {{else}}
+                            <tr>
+                                <td colspan="5" style="text-align:center">暂无数据</td>
+                            </tr>
+                            {{/if}}
+                        </table>
+                    </div>
+                    {{else}}
+                    <div class="editor-preview">
+                        <pre><code class="hljs json">{{request.body.raw}}</code></pre>
+                    </div>
+                    {{if request.body.raw_para.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table>
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>是否必填</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each request.body.raw_para item}}
+                        {{if item.key}}
+                        <tr>
+                            <td>{{item.key}}</td>
+                            <td>{{item.value}}</td>
+                            <td>{{item.field_type}}</td>
+                            <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                            <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    <!--                    {{if request.event.pre_script != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.pre_script}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--    {{/if}}-->
+                    <!--                    {{if request.event.test != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.test}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+                </div>
+
+                {{/if}}
+                {{/if}}
+                <!--respond-->
+
+                <h3 class="title"
+                    style="{{response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0 ? 'display:block':'display:none'}}"">
+                <a href="javascript:;" class="maodian"></a> 响应示例<i class="fa fa-angle-down"></i></h3>
+                {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0}}
+                <div class="markdown-response">
+                    {{if response.success.raw || response.success.parameter.length > 0}}
+                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 成功响应示例</h4>
+                    <div class="editor-preview">
+                        <pre><code class="hljs json">{{response.success.raw}}</code></pre>
+                    </div>
+                    {{if response.success.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table>
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.success.parameter item}}
+                        <tr>
+                            <td>{{item.key}}</td>
+                            <td>{{item.value}}</td>
+                            <td>{{item.field_type}}</td>
+                            <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    {{if response.error.raw || response.error.parameter.length > 0}}
+                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 失败响应示例</h4>
+                    <div class="editor-preview">
+                        <pre><code class="hljs json">{{response.error.raw}}</code></pre>
+                    </div>
+                    {{if response.error.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table>
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.error.parameter item}}
+                        <tr>
+                            <td>{{item.key}}</td>
+                            <td>{{item.value}}</td>
+                            <td>{{item.field_type}}</td>
+                            <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                {{/if}}
+                {{else if target_type == 'folder'}}
+                <h3 class="title"><a href="javascript:;" class="maodian"></a> 公共参数<i class="fa fa-angle-down"></i></h3>
+                <div class="markdown-request">
+                    <h4 class="title"><a href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    <div>
+                        <table class="header">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{if request.header.length > 0}}
+                            {{each request.header item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                            {{/if}}
+                        </table>
+                    </div>
+                    <h4 class="title"><a href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    <div>
+                        <table class="query">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.query item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    <h4 class="title"><a href="javascript:;" class="maodian"></a> Body参数及说明</h4>
+                    <div>
+                        <table class="body">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.body item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>{{item.key}}</td>
+                                <td>{{item.value}}</td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    <!--                    {{if script.pre_script != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{script.pre_script}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+                    <!--                    {{if script.test !=''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{script.test}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+                </div>
+                <!--respond-->
+                {{/if}}
+                <div class="footer" style="text-align: center;margin: 35px 24px;height: 50px">本文档由 <a
+                            href="https://docs.apipost.cn/" target="_blank" style="color:#378eef">APIPOST接口调试与管理工具</a>
+                    生成
+                </div>
+            </script>
+
+        </div>
+
+    </div>
+
+</div>
+<script type="text/html" id="golbal-env-tpl">
+    <h2 class="top">
+        {{project_name}}
+        <span class="metadata">创建时间： {{create_time}}
+        {{if expire_day_time}}
+        <span style="color: #f44336; margin-left: 15px; font-weight: bold;">过期时间： {{expire_day_time}}</span>
+        {{/if}}
+        </span>
+
+    </h2>
+    <div class="editor-preview desc">
+        <p>本文档是{{project_name}}的接口文档，以下为当前项目下的公共参数。</p>
+    </div>
+    <!-- <blockquote></blockquote> -->
+    <h3 class="title"><a href="javascript:;" class="maodian"></a> 环境变量
+        {{if envs.length > 0}}
+        <i class="fa fa-angle-down"></i>
+        {{/if}}
+    </h3>
+    {{if envs.length > 0}}
+    <div>
+        {{each envs item}}
+        <h4>{{item.name}}</h4>
+        <table>
+            <tr>
+                <th>变量名</th>
+                <th>变量初始值</th>
+                <th>变量当前值</th>
+            </tr>
+            {{each item.list value key}}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{value.value}}</td>
+                <td>{{value.current_value}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/each}}
+    </div>
+    {{else}}
+    <div style="text-align: center;"><img src="https://img.cdn.apipost.cn/docs/images/empty.svg"
+                                          style="width: 100px;margin:20px auto 20px;">暂无环境
+    </div>
+    {{/if}}
+    <h3 class="title"><a href="javascript:;" class="maodian"></a> 全局参数
+        {{if vars.request.header.length > 0 || vars.request.query.length > 0 || vars.request.body.length > 0}}
+        <i class="fa fa-angle-down"></i>
+        {{/if}}
+    </h3>
+    {{if vars.request.header.length > 0 || vars.request.query.length > 0 || vars.request.body.length > 0}}
+    <div>
+        {{if vars.request.header.length > 0}}
+        <h4>全局Header</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars.request.header item}}
+            <tr>
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars.request.query.length > 0}}
+        <h4>全局Query</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+
+            {{each vars.request.query item}}
+            <tr>
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars.request.body.length > 0}}
+        <h4>全局Body</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars.request.body item}}
+            <tr>
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+                <td>{{item.description == '' ? '暂无描述' : item.description }}</td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+        <!--        {{if vars.script.pre_script != ""}}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.pre_script}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+        <!--        {{if vars.script.test != ''}}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.test}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+    </div>
+    {{else}}
+    <div style="text-align: center;"><img src="https://img.cdn.apipost.cn/docs/images/empty.svg"
+                                          style="width: 100px;margin:20px auto 20px;">暂无参数
+    </div>
+    {{/if}}
+    <div class="footer" style="text-align: center;margin: 35px 24px;height: 50px">本文档由 <a
+                href="https://docs.apipost.cn/" target="_blank" style="color:#378eef">APIPOST接口调试与管理工具</a> 生成
+    </div>
+</script>
+<script>
+    template.defaults.imports.marked = function (md) {
+        return marked(md);
+    }
+
+    function dragControllerDiv(resize, left, mid, box) {
+        for (let i = 0; i < resize.length; i++) {
+            // 鼠标按下事件
+            resize[i].onmousedown = function (e) {
+                //颜色改变提醒
+                resize[i].style.borderColor = "#9d9d9d";
+                var startX = e.clientX;
+                resize[i].left = resize[i].offsetLeft;
+                // 鼠标拖动事件
+                document.onmousemove = function (e) {
+                    var endX = e.clientX;
+                    var moveLen = resize[i].left + (endX - startX); // （endx-startx）=移动的距离。resize[i].left+移动的距离=左边区域最后的宽度
+                    var maxT = box[i].clientWidth - resize[i].offsetWidth; // 容器宽度 - 左边区域的宽度 = 右边区域的宽度
+
+                    if (moveLen < 300) moveLen = 300; // 左边区域的最小宽度为32px
+                    if (moveLen > maxT - 150) moveLen = maxT - 150; //右边区域最小宽度为150px
+
+                    resize[i].style.left = moveLen; // 设置左侧区域的宽度
+                    $('.target.title').css({maxWidth: moveLen + 'px'})
+                    for (let j = 0; j < left.length; j++) {
+                        left[j].style.width = moveLen + "px";
+                        mid[j].style.width = box[i].clientWidth - moveLen - 10 + "px";
+                    }
+                };
+                // 鼠标松开事件
+                document.onmouseup = function (evt) {
+                    //颜色恢复
+                    resize[i].style.borderColor = "#d6d6d6";
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    resize[i].releaseCapture && resize[i].releaseCapture(); //当你不在需要继续获得鼠标消息就要应该调用ReleaseCapture()释放掉
+                };
+                resize[i].setCapture && resize[i].setCapture(); //该函数在属于当前线程的指定窗口里设置鼠标捕获
+                return false;
+            };
+        }
+    }
+
+    let timer = null
+    let arr = {"id":37754,"project_id":351730,"name":"jumplink测试","publisher":"zx","password":"","create_time":"2021-06-25 15:24:39","target_id":"5176660","target_type":"folder","project_name":"zx的私有项目","project_logo":"","project":{"vars":{"request":{"header":[],"query":[],"cookie":[],"body":[]},"script":{"pre_script":"","test":""},"variable":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"methods":["POST","GET","PUT","PATCH","DELETE","COPY","HEAD","OPTIONS","LINK","UNLINK","PURGE","LOCK","UNLOCK","PROPFIND","VIEW"],"mark":[{"key":"developing","name":"开发中"},{"key":"complated","name":"已完成"},{"key":"modifying","name":"需修改"}]},"envs":[{"env_id":"-1","name":"默认环境","list":{}}]},"targets":[{"target_id":5176660,"local_target_id":"224e0c62-c772-432e-b052-84d8a100a9eb","local_parent_id":"0","name":"jumplink测试","method":"POST","mark":"developing","is_doc":"0","target_type":"folder","status":1,"sort":2,"update_dtime":"2021-06-18 20:00:12","request":{"description":"","header":[],"query":[],"body":[]},"script":{"pre_script":"","test":""},"children":[{"target_id":5176709,"local_target_id":"c7f61a31-f50a-4285-955f-44f5c1dd3c15","local_parent_id":"224e0c62-c772-432e-b052-84d8a100a9eb","name":"添加url","method":"POST","mark":"developing","is_doc":"0","target_type":"api","status":1,"sort":1,"update_dtime":"2021-06-25 15:26:03","request":{"url":"http:\/\/127.0.0.1:8787\/api\/addLink","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"","is_checked":1,"key":"jump_url","type":"Text","not_null":"1","field_type":"","value":"https:\/\/www.baidu.com\/"},{"description":"","is_checked":1,"key":"end_time","type":"Text","not_null":"1","field_type":"","value":"2021-06-30 00:00:00"}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"target_id":5184519,"local_target_id":"dfe8e996-b1d9-482b-a596-c406cc41cd0c","local_parent_id":"224e0c62-c772-432e-b052-84d8a100a9eb","name":"跳转url","method":"GET","mark":"developing","is_doc":"0","target_type":"api","status":1,"sort":2,"update_dtime":"2021-06-25 15:26:24","request":{"url":"http:\/\/127.0.0.1:8787\/FXsm","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]}]} ;
+
+    let _html = template('template-target-sidebar-list-tpl', {
+        list: arr.targets
+    });
+    if (arr.project_logo) {
+        $('.doc-head .left img').attr('src', arr.project_logo)
+    }
+    $('.new').html(_html)
+    $('.target.folder').find('i.fa').removeClass('fa-angle-down').addClass('fa-angle-right')
+    $('.target.folder').nextAll().hide()
+
+    function findFatherDom(el) {
+        if (el.parent().parent().children(":first").hasClass('folder')) {
+            el.parent().parent().show()
+            console.log(el.parent().parent());
+            el.parent().parent().children().show()
+            el.parent().parent().children(":first").find('i').removeClass('fa-angle-right').addClass('fa-angle-down')
+            el.parent().parent().children(":first").nextAll('.folder').find('i').removeClass('fa-angle-down').addClass('fa-angle-right')
+            findFatherDom(el.parent().prev())
+        } else {
+            el.parent().children().show()
+            return
+        }
+    }
+
+    window.onload = function () {
+        let url = window.location.href;
+        let id = url.split('#')[1] ? url.split('#')[1] : '001'
+        if ($(`.target[data-target_id="${id}"]`).length > 0) {
+            if (id != "001") {
+                findFatherDom($(`.target[data-target_id="${id}"]`))
+            }
+            $(`.target[data-target_id="${id}"]`).trigger('click')
+        } else {
+            location.href = './404.html'
+            return
+        }
+
+        var resize = document.getElementsByClassName("bar");
+        var left = document.getElementsByClassName("box-first");
+        var mid = document.getElementsByClassName("box-third");
+        var box = document.getElementsByClassName("box");
+        dragControllerDiv(resize, left, mid, box);
+    }
+    $('.body').show()
+    $(document).on('click', '.target', function () {
+        let target_id = $(this).attr('data-id')
+        let _local_target_id = $(this).attr('data-target_id')
+        let url = window.location.href.split('#')[0] + '#' + _local_target_id
+        history.replaceState(null, null, url)
+        $('.target').each((i, el) => {
+            $(el).removeClass('active')
+        })
+        if ($(this).attr('data-type') == 'folder') {
+            $('.box-nav').show()
+            $(this).nextAll().show()
+            $(this).find('i').removeClass('fa-angle-right').addClass('fa-angle-down')
+            $('.box-nav .folder').show()
+            $('.box-nav .api').hide()
+        } else if ($(this).attr('data-type') == 'example' || $(this).attr('data-type') == 'api') {
+            $('.box-nav').show()
+            $('.box-nav .api').show()
+            $('.box-nav .folder').hide()
+        } else {
+            $('.box-nav').hide()
+        }
+        $(this).addClass('active')
+        if (!target_id) {
+            $(this).removeClass('active')
+        }
+        let newdata = JSON.parse(JSON.stringify(arr))
+        let LevelArr = []
+
+        function levelTree(arr1, newarr) {
+            arr1.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    newarr.push(item)
+                    levelTree(item.children, newarr)
+                } else {
+                    newarr.push(item)
+                }
+            })
+        }
+
+        levelTree(newdata.targets, LevelArr)
+        LevelArr.forEach(item => {
+            if (item.target_id == target_id) {
+                if (item.target_type == 'example' || item.target_type == 'api') {
+                    switch (item.request.body.mode) {
+                        case "none":
+                            break;
+                        case "form-data":
+                            item.request.body.mode = "multipart/form-data";
+                            break;
+                        case "urlencoded":
+                            item.request.body.mode = "application/x-www-form-urlencoded";
+                            break;
+                        case "json":
+                            item.request.body.mode = "application/json";
+                            break;
+                        case "xml":
+                            item.request.body.mode = "application/xml";
+                            break;
+                        case "javascript":
+                            item.request.body.mode = "application/javascript";
+                            break;
+                        case "plain":
+                            item.request.body.mode = "text/plain";
+                            break;
+                        case "html":
+                            item.request.body.mode = "text/html";
+                            break;
+                    }
+                    $('.template-nav-menu').html(template('template-nav-menu-tpl', item));
+                    if (item.target_type != 'folder') {
+                        let _export_data = new ClipboardJS('.CopyCurrentData', {
+                            text: function (trigger) {
+                                return trigger.getAttribute('data-clipboard-text');
+                            }
+                        });
+                        console.log(_export_data );
+                        _export_data.on('success', function (e) {
+                            $('.CopyCurrentData').text('已复制').addClass('success');
+                            e.clearSelection();
+                        });
+                        _export_data.on('error', function (e) {
+                            console.log('失败');
+                        });
+                    }
+                }
+                let _html = template('template-example-doc-tpl', item);
+                $('.preview-markdown').html(_html)
+                if (item.target_type == 'folder') {
+                    if ($('table.header tr').length <= 1) {
+                        $('table.header').parent().hide()
+                        $('table.header').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="1"]').hide()
+                        // $('table.header tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.query tr').length <= 1) {
+                        $('table.query').parent().hide()
+                        $('table.query').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="2"]').hide()
+                        // $('table.query tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.body tr').length <= 1) {
+                        $('table.body').parent().hide()
+                        $('table.body').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="3"]').hide()
+                        // $('table.body tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.header tr').length <= 1 && $('table.query tr').length <= 1 && $('table.body tr').length <= 1) {
+                        $('table.header').parents('.markdown-request').prev().hide()
+                        $('.box-nav .nav-folder-btn[data-id="0"]').hide()
+                        $('.preview-markdown .markdown-request').after('<div style="overflow: hidden;text-align: center;height: 100%;"><img src="https://img.cdn.apipost.cn/docs/images/empty.svg" style="width:100px;margin: 70px auto 20px;;">暂无参数</div>')
+
+                    }
+                    hljs.initHighlighting();
+                }
+            }
+        })
+    })
+        .on('click', '.control', function (e) {
+            e.stopPropagation()
+            let type = $(this).find('i').hasClass('fa-angle-down')
+            if (type) {
+                $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-right')
+            } else {
+                $(this).find('i').removeClass('fa-angle-right').addClass('fa-angle-down')
+            }
+
+            $(this).parents('.target').nextAll().toggle()
+        })
+        .on('input', '.search', function (e) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                let searchVal = $(this).val()
+                let TreeData = JSON.parse(JSON.stringify(arr.targets))
+                let searchArr = []
+                let LevelArr = []
+                let fatherArr = []
+
+                function openTree(tree, parent_id) {
+                    tree.forEach((item) => {
+                        if (item.children && item.children.length > 0) {
+                            openTree(item.children, item.target_id)
+                        }
+                        item.parent_id = parent_id
+                    })
+                }
+
+                openTree(TreeData, 0);
+
+                function levelTree(arr, newarr) {
+                    arr.forEach(item => {
+                        if (item.children && item.children.length > 0) {
+                            newarr.push(item)
+                            levelTree(item.children, newarr)
+                        } else {
+                            newarr.push(item)
+                        }
+                    })
+                }
+
+                levelTree(TreeData, LevelArr)
+                if ($.trim(searchVal) != '') {
+                    LevelArr.forEach(item => {
+                        if (item.target_type == 'folder') {
+                            if (item.name.toString().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        } else {
+                            if (item.name.toString().indexOf(searchVal) > -1 || item.method.toString().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        }
+                    })
+                    searchArr.forEach(item => {
+                        findFather(fatherArr, LevelArr, item)
+                    })
+
+                    function findFather(tempArr, arr, self) {
+                        if (self.parent_id != 0) {
+                            arr.filter(item => {
+                                if (self.parent_id == item.target_id) {
+                                    findFather(tempArr, arr, item);
+                                    if (tempArr.indexOf(item) === -1) {
+                                        tempArr.push(item);
+                                    }
+                                }
+                            })
+                        }
+                    }
+
+                    let finnalArr = searchArr.concat(fatherArr)
+                    $('.target').hide()
+                    $('.target[data-target_id="001"]').show()
+                    finnalArr.forEach(item => {
+                        $(`.target[data-target_id="${item.local_target_id}"]`).parent().show()
+                        $(`.target[data-target_id="${item.local_target_id}"]`).show()
+                        $('.target.folder').find('i').removeClass('fa-angle-right').addClass('fa-angle-down')
+                    })
+                } else {
+                    $('.target').parent().show()
+                    $('.target').show()
+                }
+            }, 100)
+        })
+        .on('mouseover', '.target.api', function () {
+            $(this).find('em').css({visibility: 'visible'})
+
+        })
+        .on('mouseleave', '.target.api', function () {
+            $(this).find('em').css({visibility: 'hidden'})
+        })
+        .on('click', '.nav-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-btn').removeClass('cur')
+            $(this).addClass('cur')
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.nav-folder-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-folder-btn').removeClass('cur')
+            $(this).addClass('cur')
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.box-first .top', function () {
+            arr.project.project_name = arr.project_name
+            arr.project.create_time = arr.create_time
+            arr.project.expire_day_time = arr.expire_day_time
+            $(this).addClass('active')
+            let _html = template('golbal-env-tpl', arr.project);
+            $('.preview-markdown').html(_html)
+        })
+        .on('click', 'h3.title', function () {
+            let type = $(this).find('i').hasClass('fa-angle-down')
+            if (type) {
+                $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-left')
+            } else {
+                $(this).find('i').removeClass('fa-angle-left').addClass('fa-angle-down')
+            }
+            $(this).next().toggle()
+        })
+        .on('mouseover', '.export', function () {
+            $(this).find('.export_panel').show()
+        })
+        .on('mouseleave', '.export', function () {
+            $(this).find('.export_panel').hide()
+        })
+        .on('mouseover', '.CopyCurrentData', function () {
+            let local_target_id = $(this).attr('data-target_id')
+            let newdata = JSON.parse(JSON.stringify(arr))
+            let LevelArr = []
+            function levelTree(arr1, newarr) {
+                arr1.forEach(item => {
+                    if (item.children && item.children.length > 0) {
+                        newarr.push(item)
+                        levelTree(item.children, newarr)
+                    } else {
+                        newarr.push(item)
+                    }
+                })
+            }
+            levelTree(newdata.targets, LevelArr)
+            LevelArr.forEach((item) => {
+                if (item.target_id == local_target_id) {
+                    $(this).attr('data-clipboard-text', JSON.stringify(item));
+                }
+            })
+        })
+    $(".box-third").scroll(function () {
+        let arr = []
+        $('.box-third .title').each((i, el) => {
+            arr.push($(el)[0].offsetTop)
+        })
+        arr.push(arr[arr.length - 1] + 1000)
+        let topHeight = $(this).scrollTop()
+        if ($('.target.active').hasClass('api')) {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-btn').removeClass('cur')
+                    $('.nav-btn').eq(index).addClass('cur')
+                }
+            }
+        } else {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-folder-btn').removeClass('cur')
+                    $('.nav-folder-btn').eq(index).addClass('cur')
+                }
+            }
+        }
+    });
+
+
+</script>
+</body>
+
+</html>
