@@ -3,6 +3,7 @@
 namespace app\controller\Admin;
 
 use app\service\JumpLinkService;
+use app\service\JumpService;
 use support\Request;
 use Exception;
 use \app\controller\Admin\BaseController;
@@ -36,7 +37,11 @@ class JumpLinkManageController extends BaseController
         } catch (Exception $e) {
             return json(['code' => self::FAIL, 'msg' => $e->getMessage()]);
         }
-
     }
+
+//    public function test(Request $request)
+//    {
+//        JumpService::RecoveryFailedRedisData();
+//    }
 
 }

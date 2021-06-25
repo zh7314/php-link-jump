@@ -20,8 +20,8 @@ use support\view\ThinkPHP;
 return [
     // 文件更新检测
     'monitor' => [
-        'handler'     => process\FileMonitor::class,
-        'reloadable'  => false,
+        'handler' => process\FileMonitor::class,
+        'reloadable' => false,
         'constructor' => [
             // 监控这些目录
             'monitor_dir' => [
@@ -44,4 +44,7 @@ return [
         'listen' => 'websocket://0.0.0.0:8888',
         'count'  => 10,
     ],*/
+    'task' => [
+        'handler' => process\RecoveryFailedRedisDataCrontab::class
+    ],
 ];

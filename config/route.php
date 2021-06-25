@@ -27,7 +27,8 @@ Route::get('/{id}', [app\controller\Api\JumpController::class, 'doJump'])->middl
 
 Route::group('/api', function () {
     Route::post('/addLink', [app\controller\Admin\JumpLinkManageController::class, 'addLink']);
-    Route::post('/getData', [app\controller\Admin\JumpLinkManageController::class, 'getData']);
+    Route::get('/getData', [app\controller\Admin\JumpLinkManageController::class, 'getData']);
+//    Route::get('/test', [app\controller\Admin\JumpLinkManageController::class, 'test']);
 })->middleware([
     app\middleware\ApiCounter::class,
     app\middleware\CrossDomain::class,
