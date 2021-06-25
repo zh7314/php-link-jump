@@ -40,8 +40,8 @@ class JumpLinkManageController extends BaseController
     }
 
 //    public function test(Request $request)
-//    {
-//        JumpService::RecoveryFailedRedisData();
-//    }
+//{
+//    JumpService::RecoveryFailedRedisData();
+//}
 
 }

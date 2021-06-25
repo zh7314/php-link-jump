@@ -28,9 +28,6 @@ class JumpService
     public static function RecoveryFailedRedisData()
     {
         $jumpLink = JumpLink::where('end_time', '>=', date('Y-m-d H:i:s'))->whereNull('deleted_at')->get();
-        Log::info($jumpLink->count());
-
-//        print_r($jumpLink);
 
         if ($jumpLink->count() > 0) {
             foreach ($jumpLink as $k => $v) {
