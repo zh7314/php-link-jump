@@ -40,6 +40,11 @@ QQ群 247823727
 `app\middleware\CrossDomain::class`  
 有记录请求url请求参数和返回数据，方便扩建项目时候，做计费统计数据
 
+
+#### API接口文档
+注意：本项目未提供界面，只提供接口文档 `doc` 目录下面html和markdown都有
+
+
 #### 进程状态
 
 Workerman[start.php] status  
