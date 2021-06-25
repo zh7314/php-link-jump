@@ -6,6 +6,10 @@ mysql 8.0
 
 ###此项目完全不建议在windows下运行业务，简单开发测试没有问题
 
+### 如果有问题，请反馈
+QQ群 247823727   
+提供技术服务 QQ: 903464207
+
 ### short id设置
 如果你想产出的ID看起来更习惯一点，但是short id的长度相当于来说也更长   
 `alter table jump_link AUTO_INCREMENT = 10000000;`
@@ -30,6 +34,11 @@ mysql 8.0
 #### redis数据丢失问题
 `process\RecoveryFailedRedisDataCrontab::class`  
 有执行计划任务在扫描数据库，如果有丢redis数据的链接会重新写入数据到redis
+
+#### 日志记录
+路由中间件文件里
+`app\middleware\CrossDomain::class`  
+有记录请求url请求参数和返回数据，方便扩建项目时候，做计费统计数据
 
 #### 进程状态
 
